@@ -3,55 +3,55 @@
 import sys
 import argparse
 from fastapi import FastAPI, HTTPException
-from vehicle import Vehicle
-from vehicle_manager import VehicleManager
+from sensor import Sensor
+from sensor_manager import SensorManager
 from console import Console
 
 # Create the flask app.
 app = FastAPI()
 
-# Utilize the vehicle manager to handle vehicle access.
-vehicle_manager = VehicleManager()
+# Utilize the sensor manager to handle sensor access.
+sensor_manager = SensorManager()
 
-@app.get('/vehicles')
-def get_vehicles():
-    vehicles = vehicle_manager.get_all_vehicles()
-    return vehicles
+@app.get('/sensors')
+def get_sensors():
+    sensors = sensor_manager.get_all_sensors()
+    return sensors
 
-# Add a vehicle (POST)
-# http://localhost:8000/vehicle
-@app.post('/vehicle')
-def add_vehicle(vehicle: Vehicle):
-    vehicle, status = vehicle_manager.add_vehicle(vehicle.dict())
+# Add a sensor (POST)
+# http://localhost:8000/sensor
+@app.post('/sensor')
+def add_sensor(sensor: sensor):
+    sensor, status = sensor_manager.add_sensor(sensor.dict())
     if status != 201:
-        raise HTTPException(status_code=status, detail=new_vehicle['error'])
-    return vehicle
+        raise HTTPException(status_code=status, detail=new_sensor['error'])
+    return sensor
 
-@app.get('/vehicle/{vin}')
-def get_vehicle(vin: str):
-    vehicle, status = vehicle_manager.get_vehicle(vin)
+@app.get('/sensor/{sn}')
+def get_sensor(sn: str):
+    sensor, status = sensor_manager.get_sensor(sn)
     if status != 200:
-        raise HTTPException(status_code=status, detail=vehicle['error'])
-    return vehicle
+        raise HTTPException(status_code=status, detail=sensor['error'])
+    return sensor
     
-@app.put('/vehicle/{vin}')
-def update_vehicle(vin: str, vehicle: Vehicle):
-    vehicle, status = vehicle_manager.update_vehicle(vin, vehicle.dict())
+@app.put('/sensor/{sn}')
+def update_sensor(sn: str, sensor: sensor):
+    sensor, status = sensor_manager.update_sensor(sn, sensor.dict())
     if status != 200:
-        raise HTTPException(status_code=status, detail=vehicle['error'])
-    return vehicle
+        raise HTTPException(status_code=status, detail=sensor['error'])
+    return sensor
 
-@app.delete('/vehicle/{vin}')
-def delete_vehicle(vin: str):
-    message, status = vehicle_manager.delete_vehicle(vin)
+@app.delete('/sensor/{sn}')
+def delete_sensor(sn: str):
+    message, status = sensor_manager.delete_sensor(sn)
     if status != 200:
         raise HTTPException(status_code=status, detail=message['error'])
     return message
     
 if __name__ == '__main__':
-    # Create an initial random list of vehicles, 50 by default.
-    # Add a different number as a parameter to change the number of vehicles.
-    vehicle_manager.populate_with_random_vehicles()
+    # Create an initial random list of sensors, 50 by default.
+    # Add a different number as a parameter to change the number of sensors.
+    sensor_manager.populate_with_random_sensors()
 
     import uvicorn
     uvicorn.run(app, host='0.0.0.0', port=8000)
