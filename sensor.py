@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+import sqlite3
 
 class Sensor(BaseModel):
     name: str
@@ -14,8 +15,27 @@ class Sensor(BaseModel):
         self.serial_number = data['serial_number']
 
     def __repr__(self):
-        return (f'Name: {self.name}, f'Location: {self.location}, '
+        return (f'Name: {self.name}, Location: {self.location}, '
                 f'serial_number: {self.serial_number}, Model: {self.model}')
 
     def __str__(self):
         return self.__repr__()
+
+    def save_to_db(self):
+        conn = sqlite3.connect('inventory.db')
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO sensors (name, location, model, serial_number)
+            VALUES (?, ?, ?, ?)
+        ''', (self.name, self.location, self.model, self.serial_number))
+        conn.commit()
+        conn.close()
+
+    @staticmethod
+    def get_all_sensors():
+        conn = sqlite3.connect('inventory.db')
+        cursor = conn.cursor()
+        cursor.execute('SELECT * FROM sensors')
+        sensors = cursor.fetchall()
+        conn.close()
+        return sensors

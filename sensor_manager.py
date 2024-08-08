@@ -11,8 +11,8 @@ class SensorManager:
         serial_number = sensor_data.get('serial_number')
         if serial_number in self.sensors:
             return {'error': 'sensor with this serial number already exists'}, 400
-        sensor = sensor(sensor_data)
-        self.sensors[serial_number] = sensor
+        sensor = Sensor(sensor_data)
+        sensor.save_to_db()
         return str(sensor), 201
 
     def get_sensor(self, serial_number):
@@ -38,6 +38,7 @@ class SensorManager:
         return {'message': 'sensor deleted'},200
 
     def get_all_sensors(self):
+        sensors = Sensor.get_all_sensors()
         return [str(sensor) for sensor in self.sensors.values()]
 
     def populate_with_random_sensors(self, count=50):

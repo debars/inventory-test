@@ -11,8 +11,8 @@ class SystemManager:
         serial_number = system_data.get('serial_number')
         if serial_number in self.systems:
             return {'error': 'system with this serial number already exists'}, 400
-        system = system(system_data)
-        self.systems[serial_number] = system
+        system = System(system_data)
+        system.save_to_db()
         return str(system), 201
 
     def get_system(self, serial_number):
@@ -38,6 +38,7 @@ class SystemManager:
         return {'message': 'system deleted'},200
 
     def get_all_systems(self):
+        systems = System.get_all_systems()
         return [str(system) for system in self.systems.values()]
 
     def populate_with_random_systems(self, count=50):
