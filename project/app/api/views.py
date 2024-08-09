@@ -7,6 +7,7 @@ from statistics import mean, stdev
 from typing import List
 from fastapi import APIRouter, Request
 from fastapi.responses import HTMLResponse
+from fastapi.responses import FileResponse
 from fastapi.templating import Jinja2Templates
 
 from app.api.models import SensorIn, SensorOut, SensorUpdate
@@ -18,6 +19,9 @@ from app.api.db import database
 views = APIRouter()
 templates = Jinja2Templates(directory="app/api/templates")
 
+@views.get("/favicon.ico")
+async def favicon():
+    return FileResponse("app/api/static/images/favicon.ico")
 
 @views.get("/", response_class=HTMLResponse)
 def get(request: Request):

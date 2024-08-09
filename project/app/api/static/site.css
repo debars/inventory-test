@@ -1,0 +1,70 @@
+* { padding: 10; margin: 10; vertical-align: top; }
+
+code {
+    font-family:Verdana,Arial,sans-serif;
+}
+
+body{
+    font-family:Verdana,Arial,sans-serif;
+    -moz-background-clip:border;
+    -moz-background-inline-policy:continuous;
+    -moz-background-origin:padding;
+    background:#999999 none repeat scroll 0 0;
+}
+
+input {
+    color: #808080;
+}
+
+#service_tab option {
+    color: #555;
+    background-color: #fff;
+}
+
+#service_tab select {
+    color: #555;
+    background-color: #fff;
+}
+
+#service-tab .tab-content select.#id_download {
+    color: #808080;
+}
+
+#service_tab .tab-content {
+    color: white;
+    background-color: #428bca;
+    padding: 5px 15px;
+}
+
+#service_tab h3 {
+    color: white;
+    background-color: #428bca;
+    padding: 5px 15px;
+}
+
+#service_tab .nav-pills > li > a {
+    border-radius: 0;
+}
+
+#tabs-1 {
+    min-height: 1400px;
+}
+
+div#content {
+    display: none;
+}
+             
+div#loading {
+    top: 200 px;
+    margin: auto;
+    position: absolute;
+    z-index: 1000;
+    width: 160px;
+    height: 24px;
+    background: url(/static/images/ajax-loader.gif) no-repeat;
+    cursor: wait;
+}
+
+#filename {
+    color: #3366ff;
+}
