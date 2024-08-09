@@ -1,0 +1,7 @@
+export DATABASE_HOST="localhost"
+export DATABASE_PORT="1401"
+export DATABASE_NAME="mytestdb"
+export DATABASE_USER="sa"
+export DATABASE_PASSWORD="Alan123456!"
+## NOTE: currently sqlserver is not supported in databases module for python3.9
+export DATABASE_URL="mssql+pyodbc://${DATABASE_USER}:${DATABASE_PASSWORD}@${DATABASE_HOST}:${DATABASE_PORT}/${DATABASE_NAME}?trusted_connection=yes"

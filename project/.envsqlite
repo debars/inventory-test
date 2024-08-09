@@ -1,0 +1,2 @@
+export DATABASE_NAME="mytestdb"
+export DATABASE_URL="sqlite:///${DATABASE_NAME}"

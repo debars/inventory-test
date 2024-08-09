@@ -1,0 +1,42 @@
+docker run --name postgresql -p 5401:5432 -e POSTGRES_PASSWORD=Alan123456 -d postgres:latest
+docker run --name sqlserver2019 -e "SA_PASSWORD=Alan123456!" -e "ACCEPT_EULA=Y" -p 1401:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+docker run --name mysql -p 3301:3306 -e MYSQL_ROOT_PASSWORD=Alan123456 -d mysql:latest
+
+# sqlserver
+/opt/mssql-tools/bin/sqlcmd -U sa -P Alan123456
+SELECT @@Version;
+GO
+SELECT name FROM sys.databases;
+GO
+CREATE DATABASE mytestdb;
+
+docker ps
+
+docker ps -a
+
+docker stop postgresql
+
+docker start postgresql
+
+docker rm postgresql
+
+
+# postgresql
+docker exec -it postgresql bash
+cat /etc/os-release
+psql -U postgres
+help
+\l
+CREATE DATABASE mytestdb;
+ALTER USER database-username WITH PASSWORD 'new-password';
+\q
+exit
+
+# mysql
+mysql -u root -p
+show databases;
+CREATE DATABASE mytestdb;
+
+# sqlite3 using Dockerfile
+docker build -t sqlite3 .
+docker run --name sqlite3 -it -v `pwd`/project:/db sqlite3 mytestdb
